@@ -1,8 +1,17 @@
-# Dockerfile
-FROM python:3.9.10-alpine3.14
-WORKDIR /srv
+# pull official base image
+FROM python:3.11.3-slim-buster
+
+# set work directory
+WORKDIR /usr/src/app
+
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# install dependencies
 RUN pip install --upgrade pip
-RUN pip install flask
-COPY . /srv
-ENV FLASK_APP=app
-CMD ["python","app.py"]
+COPY ./requirements.txt /usr/src/app/requirements.txt
+RUN pip install -r requirements.txt
+
+# copy project
+COPY . /usr/src/app/
