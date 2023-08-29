@@ -4,11 +4,14 @@ import json
 
 app = Flask(__name__)
 
-app.config.from_pyfile('settings.py')
-
 @app.route('/')
-def searchRecentTweet():
-    bearer_token = app.config.get("TOKEN")
+def index():
+    return "Welcome to Amatek"
+
+
+@app.route('/recent-tweet')
+def recentTweet():
+    bearer_token = 'TOKEN_HERE'
     search_url = "https://api.twitter.com/2/tweets/search/recent"
     query_params = {
         'query': '(from:aniesbaswedan -is:retweet) '
@@ -33,4 +36,5 @@ def searchRecentTweet():
     return tweet
 
 if __name__ == '__main__':
-    app.run()
+    from waitress import serve
+    serve(app, host="0.0.0.0", port=8080)

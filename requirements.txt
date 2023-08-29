@@ -2,3 +2,4 @@ requests
 python-dotenv
 requests==2.31.0
 flask==2.3.3
+waitress
