@@ -1,9 +1,8 @@
-from flask import Flask
+from flask import Flask, request
 import requests
 import psycopg2
 import base64
 from io import BytesIO
-# import redis
 import json
 import re
 import nltk
@@ -26,7 +25,8 @@ def mostTweet():
     )
     conn.autocommit = True
     cursor = conn.cursor()
-    cursor.execute('''SELECT text from tweetbysearch''')
+    table = request.args.get('table', default='*', type=str)
+    cursor.execute('SELECT text FROM {}'.format(table))
     result = cursor.fetchall()
     nltk.download('stopwords')
     stop_words = set(stopwords.words('indonesian'))
