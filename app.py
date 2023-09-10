@@ -54,8 +54,8 @@ def mostTweet():
         full_text = re.sub('[^a-zA-Z0-9\s]', '', full_text)
         tweets.append(remove_stopwords(full_text))
     text = ' '.join([word for word in tweets])
-    plt.figure(figsize=(20, 15), facecolor='white')
-    wordcloud = WordCloud(max_words=500, width=1600, height=800).generate(text)
+    plt.figure(figsize=(40, 30), facecolor='white')
+    wordcloud = WordCloud(max_words=500, width=1920, height=1080).generate(text)
     plt.imshow(wordcloud, interpolation='bilinear')
     plt.axis("off")
 
@@ -64,7 +64,8 @@ def mostTweet():
     data = base64.b64encode(buf.getbuffer()).decode("ascii")
     conn.commit()
     conn.close()
-    return f"<html><head><title>MOST</title></head><body><img width='100%' src='data:image/png;base64,{data}'/></body></html>"
+    # return f"<html><head><title>MOST</title></head><body><img width='100%' src='data:image/png;base64,{data}'/></body></html>"
+    return data
 
 
 @app.route('/recent')
